@@ -1,6 +1,6 @@
 # Uber Streaming Data Pipeline
 
-End-to-end **data engineering pipeline** for processing Uber ride data using **PySpark**, implementing a layered **Medallion architecture** for scalable data processing and analytics.
+End-to-end **data engineering pipeline** for processing Uber ride data using **PySpark**, implementing a layered **Medallion Architecture** for scalable data processing and analytics.
 
 ---
 
