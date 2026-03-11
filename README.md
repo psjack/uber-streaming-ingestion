@@ -12,14 +12,6 @@ End-to-end **data engineering pipeline** for processing Uber ride data using **P
 ![Architecture Diagram](diagrams/Architecture Diagram.png)
 ```
 
-*(Replace this placeholder with the actual architecture image later.)*
-
-Example once added:
-
-```
-![Architecture](misc/architecture.png)
-```
-
 ---
 
 # Project Overview
