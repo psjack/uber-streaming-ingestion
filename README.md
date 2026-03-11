@@ -10,6 +10,7 @@ End-to-end **data engineering pipeline** for processing Uber ride data using **P
 
 ```
 ![Architecture Diagram](diagrams/Architecture Diagram.png)
+
 ```
 
 ---
