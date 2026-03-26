@@ -1,11 +1,10 @@
 # Uber Streaming Data Pipeline
 
-End-to-end **data engineering pipeline** for processing Uber ride data using **PySpark**, implementing a layered **Medallion Architecture** for scalable data processing and analytics.
+End-to-end **real-time and batch data engineering pipeline** for processing Uber ride events using **Apache Spark (Structured Streaming)** and **Azure-native services**, implementing a scalable **Medallion Architecture (Bronze, Silver, Gold)** for advanced analytics.
 
 ---
 
 # Architecture
-
 
 <p align="center">
   <img src="diagrams/arch-diagram.png" width="900">
@@ -15,16 +14,17 @@ End-to-end **data engineering pipeline** for processing Uber ride data using **P
 
 # Project Overview
 
-This project demonstrates a modern **data engineering workflow** for processing ride data using **PySpark-based transformation pipelines**.
+This project demonstrates a modern **real-time data engineering workflow** for processing ride booking events by combining **streaming ingestion and historical batch data** into a unified pipeline.
 
 The pipeline performs:
 
-• Raw data ingestion
-• Data cleaning and transformation
-• Data modeling
-• Creation of analytics-ready datasets
+- Real-time event ingestion from streaming sources  
+- Historical data ingestion from data lake  
+- Data cleaning and transformation  
+- Data modeling using analytical schemas  
+- Creation of business-ready, analytics datasets  
 
-The implementation follows a **layered data architecture** commonly used in modern data lake systems.
+The implementation follows a **Medallion Architecture**, enabling progressive data refinement, improved data quality, and scalable processing for enterprise-grade analytics.
 
 ---
 
@@ -32,40 +32,57 @@ The implementation follows a **layered data architecture** commonly used in mode
 
 ## Bronze Layer
 
-Raw ingestion layer that captures incoming ride data with minimal transformation.
+Raw ingestion layer that captures both **real-time streaming events and historical batch data** with minimal transformation.
 
 Responsibilities:
 
-• Preserve raw source data
-• Handle schema ingestion
-• Maintain original dataset structure
+- Ingest streaming data from Event Hub  
+- Store raw data in Data Lake  
+- Preserve source fidelity for replay and debugging  
+- Handle schema inference and evolution  
 
 ---
 
 ## Silver Layer
 
-Data cleansing and transformation layer.
+Data cleansing, enrichment, and transformation layer built using **Spark Structured Streaming**.
 
 Responsibilities:
 
-• Data validation
-• Data standardization
-• Schema modeling
-• Preparation of structured analytical datasets
+- Data validation and deduplication  
+- Handling late-arriving and incomplete data  
+- Data standardization and enrichment  
+- Building structured, query-ready datasets  
+
+---
+
+## Gold Layer
+
+Curated analytics layer designed for **high-performance querying and reporting**.
+
+Responsibilities:
+
+- Aggregation of business metrics  
+- Implementation of **Star Schema (Fact & Dimension tables)**  
+- Optimization for BI tools and dashboards  
+- Serving analytics-ready datasets  
 
 ---
 
 # Tech Stack
 
-* **Python**
-* **PySpark**
-* **SQL**
-* **Jupyter Notebooks**
-* **Data Lake Architecture**
+- **Azure Event Hub** – Real-time data ingestion  
+- **Azure Data Lake Storage (ADLS)** – Scalable storage  
+- **Apache Spark (PySpark / Structured Streaming)** – Processing engine  
+- **Delta Lake** – ACID transactions and data reliability  
+- **SQL** – Data modeling and transformations  
+- **Python** – Pipeline development  
+- **Git** – Version control and historical data tracking  
 
 ---
 
 # Project Structure
+
 
 ```
 uber-streaming-ingestion/
@@ -91,23 +108,17 @@ src/
 README.md
 ```
 
+
 ---
 
 # Key Features
 
-• Modular PySpark transformation pipeline
-• Bronze → Silver data processing architecture
-• Data validation utilities
-• Structured analytics-ready datasets
-
----
-
-# Future Improvements
-
-• Implement Gold analytics layer
-• Add orchestration using workflow scheduler
-• Introduce automated testing
-• Add real-time streaming ingestion
+- Unified **streaming + batch data processing pipeline**  
+- Implementation of **Medallion Architecture (Bronze → Silver → Gold)**  
+- Real-time ingestion using Azure Event Hub  
+- Scalable transformations using Spark Structured Streaming  
+- Star Schema modeling for analytics  
+- Modular and extensible pipeline design  
 
 ---
 
