@@ -18,6 +18,8 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Run basic check
+      - name: Validate Python syntax
         run: |
-          echo "CI pipeline running successfully"
+            echo "Starting validation"
+            python -m py_compile $(git ls-files '*.py')
+            echo "Validation complete"
