@@ -23,3 +23,13 @@ jobs:
             echo "Starting validation"
             python -m py_compile $(git ls-files '*.py')
             echo "Validation complete"
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Simulated Deployment
+        run: |
+          echo "Starting deployment..."
+          echo "Deploying application (simulated)"
+          echo "Deployment successful!"            
