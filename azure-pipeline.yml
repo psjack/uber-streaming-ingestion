@@ -1,0 +1,36 @@
+trigger:
+  branches:
+    include:
+      - feature/ci-cd
+
+stages:
+  - stage: Build
+    jobs:
+      - job: BuildJob
+        pool:
+          vmImage: 'ubuntu-latest'
+
+        steps:
+          - checkout: self
+
+          - task: UsePythonVersion@0
+            inputs:
+              versionSpec: '3.10'
+
+          - script: |
+              python -m py_compile $(git ls-files '*.py')
+            displayName: 'Validate Python syntax'
+
+  - stage: Deploy
+    dependsOn: Build
+    jobs:
+      - job: DeployJob
+        pool:
+          vmImage: 'ubuntu-latest'
+
+        steps:
+          - script: |
+              echo "Starting deployment..."
+              echo "Deploying application (simulated)"
+              echo "Deployment successful!"
+            displayName: 'Simulated Deployment'
