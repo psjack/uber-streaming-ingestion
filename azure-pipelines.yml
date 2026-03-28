@@ -13,9 +13,9 @@ stages:
         steps:
           - checkout: self
 
-          - task: UsePythonVersion@0
-            inputs:
-              versionSpec: '3.10'
+          # Optional: This just confirms the agent sees your 3.13 version
+          - script: python --version
+            displayName: 'Verify Python Version'
 
           - script: |
               python -m py_compile $(git ls-files '*.py')
