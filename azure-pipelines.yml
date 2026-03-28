@@ -17,8 +17,11 @@ stages:
               "C:\Users\param\AppData\Local\Programs\Python\Python313\python.exe" --version
             displayName: 'Verify Python Version'
 
-          - script: |
-              "C:\Users\param\AppData\Local\Programs\Python\Python313\python.exe" -m py_compile $(git ls-files '*.py')
+          - powershell: |
+              $pyFiles = git ls-files '*.py'
+              foreach ($file in $pyFiles) {
+                  & "C:\Users\param\AppData\Local\Programs\Python\Python313\python.exe" -m py_compile $file
+              }
             displayName: 'Validate Python syntax'
 
   - stage: Deploy
