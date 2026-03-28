@@ -8,7 +8,7 @@ stages:
     jobs:
       - job: BuildJob
         pool:
-          vmImage: 'ubuntu-latest'
+          name: 'MyLocalMachine'  # Changed from vmImage
 
         steps:
           - checkout: self
@@ -26,7 +26,7 @@ stages:
     jobs:
       - job: DeployJob
         pool:
-          vmImage: 'ubuntu-latest'
+          name: 'MyLocalMachine'  # Changed from vmImage
 
         steps:
           - script: |
