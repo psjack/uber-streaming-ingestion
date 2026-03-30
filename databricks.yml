@@ -11,7 +11,7 @@ targets:
   dev:
     mode: development
     workspace:
-      host: https://dummy-dev.azuredatabricks.net
+      host: https://adb-7405619229783940.0.azuredatabricks.net
     variables:
       env: dev
       prefix: devuser   # static for validation
@@ -19,7 +19,7 @@ targets:
   stage:
     mode: production
     workspace:
-      host: https://dummy-stage.azuredatabricks.net
+      host: https://adb-7405619229783940.0.azuredatabricks.net
     variables:
       env: stage
       prefix: ""        # clean naming
@@ -27,7 +27,7 @@ targets:
   prod:
     mode: production
     workspace:
-      host: https://dummy-prod.azuredatabricks.net
+      host: https://adb-7405619229783940.0.azuredatabricks.net
     variables:
       env: prod
       prefix: ""        # clean naming
