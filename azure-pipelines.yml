@@ -42,20 +42,27 @@ stages:
       steps:
         - checkout: self
 
-        - script: |
-            echo "Installing Databricks CLI..."
-            pip install databricks-cli
+- powershell: |
+    Write-Host "Installing Databricks CLI v2..."
 
-            echo "Validating DEV target..."
-            databricks bundle validate -t dev
+    Invoke-WebRequest -Uri https://raw.githubusercontent.com/databricks/setup-cli/main/install.ps1 -OutFile install.ps1
+    powershell -ExecutionPolicy Bypass -File install.ps1
 
-            echo "Validating STAGE target..."
-            databricks bundle validate -t stage
+    $env:PATH += ";$env:USERPROFILE\.databricks\bin"
 
-            echo "Validating PROD target..."
-            databricks bundle validate -t prod
+    Write-Host "Checking Databricks CLI version..."
+    databricks --version
 
-          displayName: 'Validate Databricks Asset Bundle (Dry Run)'
+    Write-Host "Validating DEV target..."
+    databricks bundle validate -t dev
+
+    Write-Host "Validating STAGE target..."
+    databricks bundle validate -t stage
+
+    Write-Host "Validating PROD target..."
+    databricks bundle validate -t prod
+
+  displayName: 'Validate Databricks Asset Bundle (Dry Run)'
 
 
 # -------------------------
