@@ -48,17 +48,18 @@ stages:
             targetType: 'inline'
             script: |
   
-              Write-Host "Checking CLI version..."
-              & $cliPath --version
+              script: |
+                Write-Host "Checking Databricks CLI..."
+                databricks --version
 
-              Write-Host "Validating DEV target..."
-              & $cliPath bundle validate -t dev
+                Write-Host "Validating DEV target..."
+                databricks bundle validate -t dev
 
-              Write-Host "Validating STAGE target..."
-              & $cliPath bundle validate -t stage
+                Write-Host "Validating STAGE target..."
+                databricks bundle validate -t stage
 
-              Write-Host "Validating PROD target..."
-              & $cliPath bundle validate -t prod
+                Write-Host "Validating PROD target..."
+                databricks bundle validate -t prod
  
 
 
