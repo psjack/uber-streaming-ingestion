@@ -42,27 +42,31 @@ stages:
       steps:
         - checkout: self
 
-- powershell: |
-    Write-Host "Installing Databricks CLI v2..."
+        - task: PowerShell@2
+          displayName: 'Validate Databricks Asset Bundle (Dry Run)'
+          inputs:
+            targetType: 'inline'
+            script: |
+              Write-Host "Installing Databricks CLI v2..."
 
-    Invoke-WebRequest -Uri https://raw.githubusercontent.com/databricks/setup-cli/main/install.ps1 -OutFile install.ps1
-    powershell -ExecutionPolicy Bypass -File install.ps1
+              Invoke-WebRequest -Uri https://raw.githubusercontent.com/databricks/setup-cli/main/install.ps1 -OutFile install.ps1
+              powershell -ExecutionPolicy Bypass -File install.ps1
 
-    $env:PATH += ";$env:USERPROFILE\.databricks\bin"
+              $env:PATH += ";$env:USERPROFILE\.databricks\bin"
 
-    Write-Host "Checking Databricks CLI version..."
-    databricks --version
+              Write-Host "Checking Databricks CLI version..."
+              databricks --version
 
-    Write-Host "Validating DEV target..."
-    databricks bundle validate -t dev
+              Write-Host "Validating DEV target..."
+              databricks bundle validate -t dev
 
-    Write-Host "Validating STAGE target..."
-    databricks bundle validate -t stage
+              Write-Host "Validating STAGE target..."
+              databricks bundle validate -t stage
 
-    Write-Host "Validating PROD target..."
-    databricks bundle validate -t prod
+              Write-Host "Validating PROD target..."
+              databricks bundle validate -t prod
 
-  displayName: 'Validate Databricks Asset Bundle (Dry Run)'
+ 
 
 
 # -------------------------
