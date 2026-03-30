@@ -1,6 +1,6 @@
 bundle:
   name: uber-streaming-ingestion
-  variables:
+variables:
   env:
     default: dev
   prefix:
