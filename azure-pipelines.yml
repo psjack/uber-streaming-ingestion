@@ -50,14 +50,17 @@ stages:
                 Write-Host "Checking Databricks CLI..."
                 & "C:\Users\param\AppData\Local\Microsoft\WinGet\Packages\Databricks.DatabricksCLI_Microsoft.Winget.Source_8wekyb3d8bbwe\databricks.exe" --version
 
+                $env:DATABRICKS_HOST="https://dummy"
+                $env:DATABRICKS_TOKEN="dummytoken"
+
                 Write-Host "Validating DEV target..."
-                & "C:\Users\param\AppData\Local\Microsoft\WinGet\Packages\Databricks.DatabricksCLI_Microsoft.Winget.Source_8wekyb3d8bbwe\databricks.exe" bundle validate -t dev
+                & "C:\Users\param\AppData\Local\Microsoft\WinGet\Packages\Databricks.DatabricksCLI_Microsoft.Winget.Source_8wekyb3d8bbwe\databricks.exe" bundle validate -t dev --no-verify-ssl
 
                 Write-Host "Validating STAGE target..."
-                & "C:\Users\param\AppData\Local\Microsoft\WinGet\Packages\Databricks.DatabricksCLI_Microsoft.Winget.Source_8wekyb3d8bbwe\databricks.exe" bundle validate -t stage
+                & "C:\Users\param\AppData\Local\Microsoft\WinGet\Packages\Databricks.DatabricksCLI_Microsoft.Winget.Source_8wekyb3d8bbwe\databricks.exe" bundle validate -t stage --no-verify-ssl
 
                 Write-Host "Validating PROD target..."
-                & "C:\Users\param\AppData\Local\Microsoft\WinGet\Packages\Databricks.DatabricksCLI_Microsoft.Winget.Source_8wekyb3d8bbwe\databricks.exe" bundle validate -t prod
+                & "C:\Users\param\AppData\Local\Microsoft\WinGet\Packages\Databricks.DatabricksCLI_Microsoft.Winget.Source_8wekyb3d8bbwe\databricks.exe" bundle validate -t prod --no-verify-ssl
 
 # -------------------------
 # 3. SIMULATED DEPLOYMENT
