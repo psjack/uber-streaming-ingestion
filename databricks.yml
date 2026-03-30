@@ -40,7 +40,7 @@ resources:
       tasks:
         - task_key: ingest_task
           spark_python_task:
-            python_file: ./src/ingestion/ingestion.py
+            python_file: ./src/ingestion/ingest.py
 
           new_cluster:
             spark_version: "13.3.x-scala2.12"
