@@ -50,8 +50,8 @@ stages:
                 Write-Host "Checking Databricks CLI..."
                 & "C:\Users\param\AppData\Local\Microsoft\WinGet\Packages\Databricks.DatabricksCLI_Microsoft.Winget.Source_8wekyb3d8bbwe\databricks.exe" --version
 
-                $env:DATABRICKS_HOST=$(DBHOST)
-                $env:DATABRICKS_TOKEN=$(PAT)
+                $env:DATABRICKS_HOST="$(DBHOST)"
+                $env:DATABRICKS_TOKEN="$(PAT)"
 
                 Write-Host "Validating DEV target..."
                 & "C:\Users\param\AppData\Local\Microsoft\WinGet\Packages\Databricks.DatabricksCLI_Microsoft.Winget.Source_8wekyb3d8bbwe\databricks.exe" bundle validate -t dev  
