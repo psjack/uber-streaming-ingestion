@@ -48,18 +48,16 @@ stages:
             targetType: 'inline'
             script: |
                 Write-Host "Checking Databricks CLI..."
-                databricks --version
+                & "C:\Users\param\AppData\Local\Programs\Python\Python313\Scripts\databricks.exe" --version
 
                 Write-Host "Validating DEV target..."
-                databricks bundle validate -t dev
+                & "C:\Users\param\AppData\Local\Programs\Python\Python313\Scripts\databricks.exe" bundle validate -t dev
 
                 Write-Host "Validating STAGE target..."
-                databricks bundle validate -t stage
+                & "C:\Users\param\AppData\Local\Programs\Python\Python313\Scripts\databricks.exe" bundle validate -t stage
 
                 Write-Host "Validating PROD target..."
-                databricks bundle validate -t prod
- 
-
+                & "C:\Users\param\AppData\Local\Programs\Python\Python313\Scripts\databricks.exe" bundle validate -t prod
 
 # -------------------------
 # 3. SIMULATED DEPLOYMENT
