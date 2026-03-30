@@ -1,39 +1,79 @@
 trigger:
   branches:
     include:
-      - feature/ci-cd
+      - feature/*
 
 stages:
-  - stage: Build
-    jobs:
-      - job: BuildJob
-        pool:
-          name: 'MyLocalMachine'  # Changed from vmImage
 
-        steps:
-          - checkout: self
+# -------------------------
+# 1. BUILD STAGE
+# -------------------------
+- stage: Build
+  jobs:
+    - job: BuildJob
+      pool:
+        name: 'MyLocalMachine'
 
-          - script: |
-              "C:\Users\param\AppData\Local\Programs\Python\Python313\python.exe" --version
-            displayName: 'Verify Python Version'
+      steps:
+        - checkout: self
 
-          - powershell: |
-              $pyFiles = git ls-files '*.py'
-              foreach ($file in $pyFiles) {
-                  & "C:\Users\param\AppData\Local\Programs\Python\Python313\python.exe" -m py_compile $file
-              }
-            displayName: 'Validate Python syntax'
+        - script: |
+            "C:\Users\param\AppData\Local\Programs\Python\Python313\python.exe" --version
+          displayName: 'Verify Python Version'
 
-  - stage: Deploy
-    dependsOn: Build
-    jobs:
-      - job: DeployJob
-        pool:
-          name: 'MyLocalMachine'  # Changed from vmImage
+        - powershell: |
+            $pyFiles = git ls-files '*.py'
+            foreach ($file in $pyFiles) {
+                & "C:\Users\param\AppData\Local\Programs\Python\Python313\python.exe" -m py_compile $file
+            }
+          displayName: 'Validate Python syntax'
 
-        steps:
-          - script: |
-              echo "Starting deployment..."
-              echo "Deploying application (simulated)"
-              echo "Deployment successful!"
-            displayName: 'Simulated Deployment'
+
+# -------------------------
+# 2. VALIDATION STAGE (DAB)
+# -------------------------
+- stage: Validate_DAB
+  dependsOn: Build
+  jobs:
+    - job: ValidateJob
+      pool:
+        name: 'MyLocalMachine'
+
+      steps:
+        - checkout: self
+
+        - script: |
+            echo "Installing Databricks CLI..."
+            pip install databricks-cli
+
+            echo "Validating DEV target..."
+            databricks bundle validate -t dev
+
+            echo "Validating STAGE target..."
+            databricks bundle validate -t stage
+
+            echo "Validating PROD target..."
+            databricks bundle validate -t prod
+
+          displayName: 'Validate Databricks Asset Bundle (Dry Run)'
+
+
+# -------------------------
+# 3. SIMULATED DEPLOYMENT
+# -------------------------
+- stage: Simulated_Deploy
+  dependsOn: Validate_DAB
+  condition: succeeded()
+  jobs:
+    - job: DeployJob
+      pool:
+        name: 'MyLocalMachine'
+
+      steps:
+        - script: |
+            echo "Simulating deployment pipeline..."
+            echo "Feature branch → Dev validation"
+            echo "Develop branch → Stage validation"
+            echo "Main branch → Prod validation"
+            echo "Pipeline executed successfully!"
+          displayName: 'Simulated Deployment Flow'

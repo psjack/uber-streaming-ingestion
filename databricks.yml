@@ -1,0 +1,43 @@
+bundle:
+  name: uber-streaming-ingestion
+
+targets:
+
+  dev:
+    mode: development
+    workspace:
+      host: https://dummy-dev.azuredatabricks.net
+    variables:
+      env: dev
+      prefix: devuser   # static for validation
+
+  stage:
+    mode: production
+    workspace:
+      host: https://dummy-stage.azuredatabricks.net
+    variables:
+      env: stage
+      prefix: ""        # clean naming
+
+  prod:
+    mode: production
+    workspace:
+      host: https://dummy-prod.azuredatabricks.net
+    variables:
+      env: prod
+      prefix: ""        # clean naming
+
+resources:
+  jobs:
+    ingestion_job:
+      name: "${var.prefix}_uber_ingestion_${var.env}"
+
+      tasks:
+        - task_key: ingest_task
+          spark_python_task:
+            python_file: ./src/ingestion/ingestion.py
+
+          new_cluster:
+            spark_version: "13.3.x-scala2.12"
+            node_type_id: "Standard_DS3_v2"
+            num_workers: 1
