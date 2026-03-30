@@ -1,5 +1,10 @@
 bundle:
   name: uber-streaming-ingestion
+  variables:
+  env:
+    default: dev
+  prefix:
+    default: devuser
 
 targets:
 
