@@ -47,8 +47,6 @@ stages:
           inputs:
             targetType: 'inline'
             script: |
-  
-              script: |
                 Write-Host "Checking Databricks CLI..."
                 databricks --version
 
