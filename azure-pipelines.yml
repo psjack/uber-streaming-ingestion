@@ -47,19 +47,7 @@ stages:
           inputs:
             targetType: 'inline'
             script: |
-              Write-Host "Installing Databricks CLI v2..."
-
-              $cliUrl = "https://github.com/databricks/cli/releases/latest/download/databricks_windows_amd64.zip"
-              $zipPath = "$env:TEMP\databricks_cli.zip"
-              $extractPath = "$env:TEMP\databricks_cli"
-
-              Invoke-WebRequest -Uri $cliUrl -OutFile $zipPath
-
-              Write-Host "Extracting CLI..."
-              Expand-Archive -Path $zipPath -DestinationPath $extractPath -Force
-
-              $cliPath = Get-ChildItem -Path $extractPath -Recurse -Filter databricks.exe | Select-Object -First 1 -ExpandProperty FullName
-
+  
               Write-Host "Checking CLI version..."
               & $cliPath --version
 
